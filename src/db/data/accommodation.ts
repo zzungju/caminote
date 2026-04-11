@@ -1,0 +1,6 @@
+import { Accommodation } from '../index';
+
+export const INITIAL_ACCOMMODATIONS: Accommodation[] = [
+  { id: 1, destinationId: 1, name_ko: "55번 공립 알베르게", name_en: "55th Public School Albert", location_ko: "생장 피에드 포르", location_en: "Saint-Jean-Pied-de-Port", price: 25, bedCounts: 2, contactNumber: "010-1234-5678", mail: "hotel@example.com", openTime: "09:00", closeTime: "18:00", operatingPeriod: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"], information_ko: "생장 피에드 포르 호텔은 프랑스길을 걷는 순례자들이 머무는 곳입니다.", information_en: "Saint-Jean-Pied-de-Port Hotel is a place for pilgrims walking the French Way to stay." },
+  { id: 2, destinationId: 1, name_ko: "51번 공립 알베르게", name_en: "51th Public School Albert", location_ko: "생장 피에드 포르", location_en: "Saint-Jean-Pied-de-Port", price: 25, bedCounts: 2, contactNumber: "010-1234-5678", mail: "hotel@example.com", openTime: "09:00", closeTime: "18:00", operatingPeriod: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"], information_ko: "생장 피에드 포르 호텔은 프랑스길을 걷는 순례자들이 머무는 곳입니다.", information_en: "Saint-Jean-Pied-de-Port Hotel is a place for pilgrims walking the French Way to stay." },
+];
