@@ -10,9 +10,7 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    reactCompiler: true, // 리액트 컴파일러 활성화!
-  },
+  reactCompiler: true,
 };
 
 export default withPWA(nextConfig);
