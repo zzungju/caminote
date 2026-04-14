@@ -1,1 +1,98 @@
+@import "pretendard/dist/web/variable/pretendardvariable.css";
 @import "tailwindcss";
+
+/* Figma 86:567 — Pretendard, 행간 100%, 자간 0 */
+
+@theme {
+  --font-sans:
+    "Pretendard Variable", Pretendard, ui-sans-serif, system-ui, -apple-system,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+/* 크기: text-12 … text-32 | 굵기: text-200 … text-800 (조합 예: text-24 text-700) */
+@utility text-12 {
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-14 {
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-16 {
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-20 {
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-24 {
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-28 {
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-32 {
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-200 {
+  font-weight: 200;
+}
+
+@utility text-300 {
+  font-weight: 300;
+}
+
+@utility text-400 {
+  font-weight: 400;
+}
+
+@utility text-500 {
+  font-weight: 500;
+}
+
+@utility text-600 {
+  font-weight: 600;
+}
+
+@utility text-700 {
+  font-weight: 700;
+}
+
+@utility text-800 {
+  font-weight: 800;
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-white font-sans text-black;
+  }
+}
