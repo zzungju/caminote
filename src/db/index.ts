@@ -33,7 +33,7 @@ export interface Accommodation {
   information_en: string;
 }
 
-export interface TourSpot {
+export interface TouristSpot {
   id?: number;
   destinationId: number;
   name_ko: string;
@@ -57,7 +57,7 @@ export class CaminoteDB extends Dexie {
   routes!: Table<Route>;
   destinations!: Table<Destination>;
   accommodations!: Table<Accommodation>;
-  tourSpots!: Table<TourSpot>;
+  touristSpots!: Table<TouristSpot>;  
   informations!: Table<Information>;
 
   constructor() {
@@ -83,11 +83,11 @@ export const initializeDB = async () => {
   if (routeCount === 0) {
     console.log("Caminote: 초기 데이터를 로딩합니다...");
     try {
-      await db.transaction('rw', [db.routes, db.destinations, db.accommodations, db.tourSpots, db.informations], async () => {
+      await db.transaction('rw', [db.routes, db.destinations, db.accommodations, db.touristSpots, db.informations], async () => {
         await db.routes.bulkAdd(INITIAL_DATA.routes);
         await db.destinations.bulkAdd(INITIAL_DATA.destinations);
         await db.accommodations.bulkAdd(INITIAL_DATA.accommodations);
-        await db.tourSpots.bulkAdd(INITIAL_DATA.touristSpots);
+        await db.touristSpots.bulkAdd(INITIAL_DATA.touristSpots);
         await db.informations.bulkAdd(INITIAL_DATA.informations);
       });
     } catch (error) {

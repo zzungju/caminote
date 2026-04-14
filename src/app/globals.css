@@ -1,1 +1,120 @@
+@import "pretendard/dist/web/variable/pretendardvariable.css";
 @import "tailwindcss";
+
+@theme {
+  --font-sans:
+    "Pretendard Variable", Pretendard, ui-sans-serif, system-ui, -apple-system,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  --color-primary-50: #eaf3ff;
+  --color-primary-100: #cfe3ff;
+  --color-primary-200: #9fc7ff;
+  --color-primary-300: #6fabff;
+  --color-primary-400: #3f8fff;
+  --color-primary-500: #056bda;
+  --color-primary-600: #045ec2;
+  --color-primary-700: #034ea3;
+  --color-primary-800: #023e85;
+  --color-primary-900: #012e66;
+
+  --color-gray-50: #ffffff;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  --color-yellow-100: #f9e80d;
+  --color-red-100: #dc2626;
+}
+
+@utility text-12 {
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-14 {
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-16 {
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-20 {
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-24 {
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-28 {
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-32 {
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-style: normal;
+}
+
+@utility text-200 {
+  font-weight: 200;
+}
+
+@utility text-300 {
+  font-weight: 300;
+}
+
+@utility text-400 {
+  font-weight: 400;
+}
+
+@utility text-500 {
+  font-weight: 500;
+}
+
+@utility text-600 {
+  font-weight: 600;
+}
+
+@utility text-700 {
+  font-weight: 700;
+}
+
+@utility text-800 {
+  font-weight: 800;
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-gray-50 font-sans text-gray-900;
+  }
+}
