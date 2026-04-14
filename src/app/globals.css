@@ -1,15 +1,37 @@
 @import "pretendard/dist/web/variable/pretendardvariable.css";
 @import "tailwindcss";
 
-/* Figma 86:567 — Pretendard, 행간 100%, 자간 0 */
-
 @theme {
   --font-sans:
     "Pretendard Variable", Pretendard, ui-sans-serif, system-ui, -apple-system,
     "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  --color-primary-50: #eaf3ff;
+  --color-primary-100: #cfe3ff;
+  --color-primary-200: #9fc7ff;
+  --color-primary-300: #6fabff;
+  --color-primary-400: #3f8fff;
+  --color-primary-500: #056bda;
+  --color-primary-600: #045ec2;
+  --color-primary-700: #034ea3;
+  --color-primary-800: #023e85;
+  --color-primary-900: #012e66;
+
+  --color-gray-50: #ffffff;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  --color-yellow-100: #f9e80d;
+  --color-red-100: #dc2626;
 }
 
-/* 크기: text-12 … text-32 | 굵기: text-200 … text-800 (조합 예: text-24 text-700) */
 @utility text-12 {
   font-size: 12px;
   line-height: 1;
@@ -93,6 +115,6 @@
   }
 
   body {
-    @apply bg-white font-sans text-black;
+    @apply bg-gray-50 font-sans text-gray-900;
   }
 }
