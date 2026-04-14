@@ -1,7 +1,7 @@
 import { INITIAL_ROUTES } from './routes';
 import { INITIAL_DESTINATIONS } from './destination';
 import { INITIAL_ACCOMMODATIONS } from './accommodation';
-import { INITIAL_TOURIST_SPOTS } from './tourSpot';
+import { INITIAL_TOURIST_SPOTS } from './touristSpot';
 import { INITIAL_INFORMATIONS } from './information';
 
 export const INITIAL_DATA = {
