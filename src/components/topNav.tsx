@@ -4,7 +4,7 @@ import logo from '@/assets/images/logo.png';
 
 function TopNav() {
   return (
-    <header className="flex h-14 flex-col items-center justify-end bg-white px-4 pb-2 pt-[env(safe-area-inset-top)]">
+    <header className="flex h-15 flex-col items-center justify-end bg-white px-4 pb-2 pt-[env(safe-area-inset-top)]">
       <Link href="/" className="flex items-center justify-center">
         <Image
           src={logo}
