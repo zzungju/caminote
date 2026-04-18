@@ -4,16 +4,29 @@ import './globals.css';
 
 import RootLayoutClient from './RootLayoutClient';
 
+function resolveMetadataBase(): URL {
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site) {
+    try {
+      return new URL(site.endsWith('/') ? site : `${site}/`);
+    } catch {
+      /* fall through */
+    }
+  }
+  if (process.env.VERCEL_URL) {
+    return new URL(`https://${process.env.VERCEL_URL}/`);
+  }
+  return new URL('http://localhost:3000/');
+}
+
 export const metadata: Metadata = {
+  metadataBase: resolveMetadataBase(),
   applicationName: 'Santiago Way',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     title: 'Santiago Way',
-  },
-  icons: {
-    icon: [{ url: '/logo.png', sizes: '512x512', type: 'image/png' }],
-    apple: '/logo.png',
+    statusBarStyle: 'default',
   },
 };
 
