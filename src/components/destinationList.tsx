@@ -36,7 +36,10 @@ function DestinationList({
             <p className={`text-16 text-600 leading-snug break-keep ${activeCls}`}>
               {destination.name_ko}
             </p>
-            <p className={`text-12 text-700 leading-snug break-keep ${activeCls}`}>
+            <p
+              lang="en"
+              className={`text-12 text-700 leading-snug break-words [overflow-wrap:anywhere] ${activeCls}`}
+            >
               {destination.name_en}
             </p>
           </div>
