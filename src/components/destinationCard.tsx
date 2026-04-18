@@ -27,7 +27,7 @@ function DestinationCard({
             onSelect();
           }
         }}
-        className={`relative flex h-[252px] w-[146px] shrink-0 snap-start cursor-pointer flex-col rounded-xl border p-4 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 ${
+        className={`relative flex h-[252px] w-[154px] shrink-0 snap-start cursor-pointer flex-col rounded-xl border p-4 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 ${
           active
             ? 'border-transparent bg-primary-500 text-white'
             : 'border-gray-100 bg-white text-primary-500'
