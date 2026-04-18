@@ -20,14 +20,13 @@ export interface Accommodation {
   destinationId: number;
   name_ko: string;
   name_en: string;
-  location_ko: string;
-  location_en: string;
+  location: string;
   price: number;
   bedCounts: number;
-  contactNumber: string;
-  mail: string;
-  openTime: string;
-  closeTime: string;
+  contactNumber: string | null;
+  mail: string | null;
+  openTime: string | null;
+  closeTime: string | null;
   operatingPeriod: string[];
   information_ko: string;
   information_en: string;
@@ -38,8 +37,7 @@ export interface TouristSpot {
   destinationId: number;
   name_ko: string;
   name_en: string;
-  location_ko: string;
-  location_en: string;
+  location: string;
   description_ko: string;
   description_en: string;
 }
@@ -51,6 +49,14 @@ export interface Information {
   imageURLs: string[];
   description_ko: string;
   description_en: string;
+}
+
+/** 프랑스 길 지도 폴리라인용 거점 (DB 목적지 id와 정렬해 사용) */
+export interface CaminoNode {
+  id: number;
+  name_ko: string;
+  name_en: string;
+  coords: [number, number];
 }
 
 export class CaminoteDB extends Dexie {
@@ -91,6 +97,12 @@ export const initializeDB = async () => {
         await db.informations.bulkAdd(INITIAL_DATA.informations);
       });
     } catch (error) {
+    }
+  } else if (process.env.NODE_ENV === 'development') {
+    try {
+      await db.destinations.bulkPut(INITIAL_DATA.destinations);
+    } catch (error) {
+      console.warn('Caminote: 목적지 시드 동기화 실패', error);
     }
   }
 };
