@@ -50,3 +50,19 @@ export const CAMINO_NODES: CaminoNode[] = INITIAL_DESTINATIONS.map((d, i) => ({
 }));
 
 export const CAMINO_NODE_COORDS: [number, number][] = CAMINO_NODES.map((n) => n.coords);
+
+/** 목적지 `destinationId`(1-based, 노드 순과 동일)까지의 구간 폴리라인 — 첫 구간은 1→2 노드 */
+export function getCaminoSegmentPath(destinationId: number): [number, number][] {
+  const coords = CAMINO_NODE_COORDS;
+  if (coords.length === 0) return [];
+  const id = Math.floor(destinationId);
+  if (id < 1) return [];
+  if (id === 1) {
+    return coords.length >= 2 ? [coords[0]!, coords[1]!] : [coords[0]!];
+  }
+  if (id > coords.length) return [];
+  const prev = coords[id - 2];
+  const curr = coords[id - 1];
+  if (!prev || !curr) return [];
+  return [prev, curr];
+}

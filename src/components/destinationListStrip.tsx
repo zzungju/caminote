@@ -12,7 +12,6 @@ export type DestinationListStripProps = {
   onActiveChange: (index: number) => void;
 };
 
-/** 스크롤 컨테이너의 세로 중앙에 어떤 슬롯이 걸리는지 기준으로 활성 인덱스 계산 */
 function resolveActiveIndexFromScroll(container: HTMLDivElement): number {
   const slots = container.querySelectorAll<HTMLElement>('[data-list-slot]');
   const n = slots.length;
@@ -83,14 +82,6 @@ export default function DestinationListStrip({
     [onActiveChange, scrollItemIntoView],
   );
 
-  const handleListSelect = useCallback(
-    (i: number) => {
-      onActiveChange(i);
-      requestAnimationFrame(() => scrollItemIntoView(i));
-    },
-    [onActiveChange, scrollItemIntoView],
-  );
-
   useEffect(() => {
     const el = scrollRef.current;
     if (!el || n === 0) return;
@@ -108,7 +99,7 @@ export default function DestinationListStrip({
   return (
     <div
       ref={scrollRef}
-      className="scrollbar-hide pb-bottom-nav-safe flex max-h-[min(calc(100dvh-15.5rem-6rem-env(safe-area-inset-bottom,0px)),400px)] min-h-0 min-w-0 w-full flex-col gap-2 overflow-y-auto"
+      className="scrollbar-hide flex min-h-0 min-w-0 w-full flex-1 flex-col gap-2 overflow-y-auto pb-2"
     >
       {sorted.map((destination, i) => (
         <div
@@ -126,7 +117,7 @@ export default function DestinationListStrip({
             destination={destination}
             orderLabel={String(i + 1)}
             active={i === activeIndex}
-            onSelect={() => handleListSelect(i)}
+            detailHref={`/destination/${destination.id ?? i + 1}`}
           />
         </div>
       ))}

@@ -85,7 +85,7 @@ import { INITIAL_DATA } from './data/initialData';
 
 export const initializeDB = async () => {
   const routeCount = await db.routes.count();
-  
+
   if (routeCount === 0) {
     console.log("Caminote: 초기 데이터를 로딩합니다...");
     try {
@@ -96,13 +96,40 @@ export const initializeDB = async () => {
         await db.touristSpots.bulkAdd(INITIAL_DATA.touristSpots);
         await db.informations.bulkAdd(INITIAL_DATA.informations);
       });
-    } catch (error) {
+    } catch {
+      // 초기 시드가 이미 있거나 충돌하면 무시
     }
-  } else if (process.env.NODE_ENV === 'development') {
+    return;
+  }
+
+  /** 목적지는 있는데 숙소/관광지 테이블만 비어 있는 경우(예: 예전 버전에서 목적지만 동기화됨) 복구 */
+  const destCount = await db.destinations.count();
+  const accCount = await db.accommodations.count();
+  const spotCount = await db.touristSpots.count();
+  if (destCount > 0 && (accCount === 0 || spotCount === 0)) {
     try {
-      await db.destinations.bulkPut(INITIAL_DATA.destinations);
+      await db.transaction('rw', [db.accommodations, db.touristSpots], async () => {
+        if (accCount === 0) {
+          await db.accommodations.bulkPut(INITIAL_DATA.accommodations);
+        }
+        if (spotCount === 0) {
+          await db.touristSpots.bulkPut(INITIAL_DATA.touristSpots);
+        }
+      });
+    } catch (e) {
+      console.warn("Caminote: 숙소/관광지 데이터 복구 실패", e);
+    }
+  }
+
+  if (process.env.NODE_ENV === "development") {
+    try {
+      await db.transaction("rw", [db.destinations, db.accommodations, db.touristSpots], async () => {
+        await db.destinations.bulkPut(INITIAL_DATA.destinations);
+        await db.accommodations.bulkPut(INITIAL_DATA.accommodations);
+        await db.touristSpots.bulkPut(INITIAL_DATA.touristSpots);
+      });
     } catch (error) {
-      console.warn('Caminote: 목적지 시드 동기화 실패', error);
+      console.warn("Caminote: 시드 동기화 실패", error);
     }
   }
 };

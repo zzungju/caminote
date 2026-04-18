@@ -32,7 +32,7 @@ export default function DestinationCardNav({
   const pct = (activeIndex / (count - 1)) * 100;
 
   return (
-    <div className="mx-1 w-full py-1">
+    <div className="mx-1 w-full py-1 px-8">
       <div className="relative h-4 w-full">
         <div
           ref={trackRef}

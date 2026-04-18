@@ -63,9 +63,12 @@ export default function DestinationCardStrip({
   /** 스크롤로 active만 바뀐 경우, 아래 useLayoutEffect의 scrollTo는 생략 */
   const skipNextCenterScrollRef = useRef(false);
   const activeIndexRef = useRef(activeIndex);
-  activeIndexRef.current = activeIndex;
 
   const n = sorted.length;
+
+  useLayoutEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
 
   useLayoutEffect(() => {
     if (skipNextCenterScrollRef.current) {
@@ -136,7 +139,7 @@ export default function DestinationCardStrip({
               destination={destination}
               orderLabel={String(i + 1)}
               active={i === activeIndex}
-              onSelect={() => onActiveChange(i)}
+              detailHref={`/destination/${destination.id ?? i + 1}`}
             />
           </div>
         ))}
