@@ -21,7 +21,7 @@ function DestinationCard({
     return (
       <Link
         href={detailHref}
-        className={`relative flex h-[252px] w-[154px] shrink-0 snap-start cursor-pointer flex-col rounded-xl border p-4 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 ${
+        className={`relative flex h-[252px] w-[154px] min-w-0 shrink-0 snap-start cursor-pointer flex-col rounded-xl border p-4 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 ${
           active
             ? 'border-transparent bg-primary-500 text-white'
             : 'border-gray-100 bg-white text-primary-500'
@@ -32,9 +32,14 @@ function DestinationCard({
         >
           {orderLabel}
         </p>
-        <div className="mt-10 flex flex-col gap-1 pr-6">
-          <p className={`text-16 text-600 leading-snug break-keep ${activeCls}`}>{destination.name_ko}</p>
-          <p className={`text-12 text-700 leading-snug break-keep ${activeCls}`}>{destination.name_en}</p>
+        <div className="mt-10 flex min-w-0 w-full flex-col gap-1 pr-6">
+          <p className={`min-w-0 text-16 text-600 leading-snug break-keep ${activeCls}`}>{destination.name_ko}</p>
+          <p
+            lang="en"
+            className={`min-w-0 text-12 text-700 leading-snug break-words [overflow-wrap:anywhere] ${activeCls}`}
+          >
+            {destination.name_en}
+          </p>
         </div>
         <div
           className="mt-auto h-[46px] w-full flex items-center justify-center"

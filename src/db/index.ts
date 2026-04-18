@@ -81,23 +81,65 @@ export class CaminoteDB extends Dexie {
 
 export const db = new CaminoteDB();
 
-import { INITIAL_DATA } from './data/initialData';
+import { INITIAL_DATA, SEED_DATA_VERSION } from './data/initialData';
+
+const SEED_VERSION_STORAGE_KEY = 'caminote:seedDataVersion';
+
+function readStoredSeedVersion(): number {
+  if (typeof window === 'undefined') return 0;
+  try {
+    const raw = window.localStorage.getItem(SEED_VERSION_STORAGE_KEY);
+    const n = raw == null ? 0 : Number(raw);
+    return Number.isFinite(n) ? n : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function writeStoredSeedVersion(version: number): void {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(SEED_VERSION_STORAGE_KEY, String(version));
+  } catch {
+    /* private mode 등 */
+  }
+}
+
+/** 번들에 포함된 시드로 IndexedDB를 덮어씁니다 (id 기준 upsert). */
+async function applyBundleSeed(): Promise<void> {
+  await db.transaction(
+    'rw',
+    [db.routes, db.destinations, db.accommodations, db.touristSpots, db.informations],
+    async () => {
+      await db.routes.bulkPut(INITIAL_DATA.routes);
+      await db.destinations.bulkPut(INITIAL_DATA.destinations);
+      await db.accommodations.bulkPut(INITIAL_DATA.accommodations);
+      await db.touristSpots.bulkPut(INITIAL_DATA.touristSpots);
+      await db.informations.bulkPut(INITIAL_DATA.informations);
+    }
+  );
+  writeStoredSeedVersion(SEED_DATA_VERSION);
+}
 
 export const initializeDB = async () => {
   const routeCount = await db.routes.count();
+  const storedVersion = readStoredSeedVersion();
 
-  if (routeCount === 0) {
-    console.log("Caminote: 초기 데이터를 로딩합니다...");
+  const needsFullSeed =
+    routeCount === 0 ||
+    storedVersion < SEED_DATA_VERSION ||
+    process.env.NODE_ENV === 'development';
+
+  if (needsFullSeed) {
     try {
-      await db.transaction('rw', [db.routes, db.destinations, db.accommodations, db.touristSpots, db.informations], async () => {
-        await db.routes.bulkAdd(INITIAL_DATA.routes);
-        await db.destinations.bulkAdd(INITIAL_DATA.destinations);
-        await db.accommodations.bulkAdd(INITIAL_DATA.accommodations);
-        await db.touristSpots.bulkAdd(INITIAL_DATA.touristSpots);
-        await db.informations.bulkAdd(INITIAL_DATA.informations);
-      });
-    } catch {
-      // 초기 시드가 이미 있거나 충돌하면 무시
+      if (routeCount === 0) {
+        console.log('Caminote: 초기 데이터를 로딩합니다...');
+      } else if (storedVersion < SEED_DATA_VERSION) {
+        console.log('Caminote: 시드 데이터 버전 갱신 중...');
+      }
+      await applyBundleSeed();
+    } catch (e) {
+      console.warn('Caminote: 시드 적용 실패', e);
     }
     return;
   }
@@ -117,19 +159,7 @@ export const initializeDB = async () => {
         }
       });
     } catch (e) {
-      console.warn("Caminote: 숙소/관광지 데이터 복구 실패", e);
-    }
-  }
-
-  if (process.env.NODE_ENV === "development") {
-    try {
-      await db.transaction("rw", [db.destinations, db.accommodations, db.touristSpots], async () => {
-        await db.destinations.bulkPut(INITIAL_DATA.destinations);
-        await db.accommodations.bulkPut(INITIAL_DATA.accommodations);
-        await db.touristSpots.bulkPut(INITIAL_DATA.touristSpots);
-      });
-    } catch (error) {
-      console.warn("Caminote: 시드 동기화 실패", error);
+      console.warn('Caminote: 숙소/관광지 데이터 복구 실패', e);
     }
   }
 };
