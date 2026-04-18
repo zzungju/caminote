@@ -1,22 +1,32 @@
-'use client';
+import type { Metadata, Viewport } from 'next';
 
-import { useEffect } from 'react';
-import { initializeDB } from '@/db';
-import "./globals.css";
+import './globals.css';
 
-import TopNav from '@/components/topNav';
-import BottomNav from '@/components/bottomNav';
+import RootLayoutClient from './RootLayoutClient';
+
+export const metadata: Metadata = {
+  applicationName: 'Santiago Way',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    title: 'Santiago Way',
+  },
+  icons: {
+    icon: [{ url: '/logo.png', sizes: '512x512', type: 'image/png' }],
+    apple: '/logo.png',
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#056bda',
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    initializeDB();
-  }, []);
-
   return (
     <html lang="ko">
-      <TopNav />
-      <body>{children}</body>
-      <BottomNav />
+      <body>
+        <RootLayoutClient>{children}</RootLayoutClient>
+      </body>
     </html>
   );
 }
