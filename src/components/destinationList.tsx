@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import arrowEmpty from '@/assets/images/Arrow_Empty.png';
 import arrowFull from '@/assets/images/Arrow_Full.png';
@@ -8,32 +9,25 @@ type DestinationListProps = {
   destination: Destination;
   orderLabel: string;
   active: boolean;
-  onSelect: () => void;
+  detailHref: string;
 };
 
+/** 리스트 뷰 카드 — 주요 목적지(Figma 99-577) 기준 전체 너비·라운드 패널 안에서 사용 */
 function DestinationList({
   destination,
   orderLabel,
   active,
-  onSelect,
+  detailHref,
 }: DestinationListProps) {
   const activeCls = active ? 'text-white' : 'text-primary-500';
 
   return (
-    <article
-      role="button"
-      tabIndex={0}
-      onClick={onSelect}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onSelect();
-        }
-      }}
-      className={`relative flex h-[123px] w-[255px] shrink-0 cursor-pointer flex-col rounded-xl border p-4 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 ${
+    <Link
+      href={detailHref}
+      className={`relative flex min-h-[123px] w-full min-w-0 max-w-full cursor-pointer flex-col rounded-xl border p-4 outline-none transition-[box-shadow,colors,background-color,border-color] focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 ${
         active
-          ? 'border-transparent bg-primary-500 text-white'
-          : 'border-gray-100 bg-white text-primary-500'
+          ? 'border-transparent bg-primary-500 text-white shadow-md'
+          : 'border-gray-200 bg-white text-primary-500 shadow-[0_1px_2px_0_rgb(0_0_0/0.05)]'
       }`}
     >
       <div className="flex min-h-0 flex-1 flex-col justify-between">
@@ -72,7 +66,7 @@ function DestinationList({
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
 

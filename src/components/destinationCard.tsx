@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+
 import arrowFull from '@/assets/images/Arrow_Full.png';
 import arrowEmpty from '@/assets/images/Arrow_Empty.png';
 import { Destination } from '@/db/index';
@@ -7,27 +9,19 @@ function DestinationCard({
     destination,
     orderLabel,
     active,
-    onSelect,
+    detailHref,
   }: {
     destination: Destination;
     orderLabel: string;
     active: boolean;
-    onSelect: () => void;
+    detailHref: string;
   }) {
     const activeCls = active ? 'text-white' : 'text-primary-500';
   
     return (
-      <article
-        role="button"
-        tabIndex={0}
-        onClick={onSelect}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            onSelect();
-          }
-        }}
-        className={`relative flex h-[252px] w-[146px] shrink-0 snap-start cursor-pointer flex-col rounded-xl border p-4 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 ${
+      <Link
+        href={detailHref}
+        className={`relative flex h-[252px] w-[154px] shrink-0 snap-start cursor-pointer flex-col rounded-xl border p-4 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 ${
           active
             ? 'border-transparent bg-primary-500 text-white'
             : 'border-gray-100 bg-white text-primary-500'
@@ -53,7 +47,7 @@ function DestinationCard({
           )}
         </div>
         <p className={`mt-4 text-12 text-300 leading-none ${activeCls}`}>{destination.distance} km</p>
-      </article>
+      </Link>
     );
   }
 

@@ -31,7 +31,7 @@ function BottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 z-50 flex w-full items-start justify-between border-t border-gray-200 bg-white px-[38px] py-4">
+      className="fixed bottom-0 z-50 flex w-full h-22 items-start justify-between border-t border-gray-200 bg-white px-[38px] py-4">
       {navItems.map((item) => {
         const Icon = item.icon;
         const active = isActive(pathname, item.href);
